@@ -1,0 +1,15 @@
+{
+  "name": "mrh-p6",
+  "version": "1.0.0",
+  "description": "Read and edit Primavera P6 Professional SQLite schedules.",
+  "mcpServers": {
+    "mrh-p6": {
+      "command": "node",
+      "args": [
+        "${extensionPath}/mrh/mrh-mcp.js"
+      ],
+      "cwd": "${extensionPath}"
+    }
+  },
+  "contextFileName": "GEMINI.md"
+}
