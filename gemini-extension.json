@@ -1,7 +1,7 @@
 {
   "name": "mrh-p6",
   "version": "1.0.0",
-  "description": "Read and edit Primavera P6 Professional SQLite schedules.",
+  "description": "Talk to your Primavera P6 Professional SQLite schedules: overview, search, health check, baseline slips, look-ahead, XER export and safe, undoable edits.",
   "mcpServers": {
     "mrh-p6": {
       "command": "node",

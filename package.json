@@ -1,22 +1,28 @@
 {
-  "name": "mrh-p6-gemini",
+  "name": "mrh-p6-studio-gemini",
   "version": "1.0.0",
-  "description": "MRH P6 for Gemini CLI: read and edit Primavera P6 Professional SQLite schedules over MCP.",
+  "description": "MRH P6 Studio for Gemini CLI - talk to your Primavera P6 Professional schedules (open-source MCP extension).",
   "author": "Merih Doğan",
   "license": "MIT",
+  "homepage": "https://github.com/merihdogan/Mrh-P6-Studio-Gemini",
   "repository": {
     "type": "git",
-    "url": "https://github.com/merihdogan/mrh-p6-gemini.git"
+    "url": "https://github.com/merihdogan/Mrh-P6-Studio-Gemini.git"
+  },
+  "bugs": {
+    "url": "https://github.com/merihdogan/Mrh-P6-Studio-Gemini/issues"
   },
   "keywords": [
     "primavera",
     "p6",
     "mcp",
+    "model-context-protocol",
     "scheduling",
     "construction",
     "xer",
     "sqlite",
-    "planning"
+    "planning",
+    "project-controls"
   ],
   "engines": {
     "node": ">=22.13"

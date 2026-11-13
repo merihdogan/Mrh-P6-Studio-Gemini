@@ -1,34 +1,71 @@
-<p align="center"><img src="mrh-logo.svg" width="72" alt=""></p>
+<p align="center"><img src="docs/gorseller/banner.svg" alt="MRH P6 Studio for Gemini CLI" width="100%"></p>
 
-# MRH P6 for Gemini CLI
+<h1 align="center">MRH P6 Studio for Gemini CLI</h1>
 
-Ask **Gemini CLI** about your **Primavera P6 Professional** schedules.
-MRH P6 is an open-source MCP server for the P6 SQLite database on your computer.
+<p align="center"><b>Talk to your Primavera P6 schedules from the terminal — an open-source MCP extension for Gemini CLI.</b></p>
 
-## Install
+<p align="center">
+  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-d9b26f?style=for-the-badge"></a>
+  <img alt="Node.js 22.13+" src="https://img.shields.io/badge/node-%E2%89%A522.13-5eead4?style=for-the-badge&logo=nodedotjs&logoColor=white">
+  <img alt="Model Context Protocol" src="https://img.shields.io/badge/MCP-server-7aa2ff?style=for-the-badge">
+  <img alt="Zero dependencies" src="https://img.shields.io/badge/dependencies-0-3ddc97?style=for-the-badge">
+  <img alt="Primavera P6 Professional" src="https://img.shields.io/badge/Primavera%20P6-SQLite-f0a868?style=for-the-badge">
+</p>
+
+## Why MRH P6 Studio?
+
+Planners spend hours clicking through layouts, filters and reports to answer simple questions. MRH P6 Studio lets your AI assistant read the schedule for you — straight from the P6 Professional database on your computer.
+
+- 🔎 **Ask anything** — *"What is driving the delay?"*, *"Which critical activities start next month?"*, *"Show the 10 worst slips against the baseline."*
+- 🩺 **Schedule health in one call** — 15 quality checks (logic, leads/lags, constraints, float, durations, invalid dates, loops…) with a 0–100 score and the exact activities to fix.
+- 📈 **Progress vs. baseline** — duration-weighted progress, planned progress at the data date, forecast vs. baseline finish, per-WBS progress.
+- ✏️ **Safe edits when you allow them** — update progress for hundreds of activities in one transaction, add/remove activities and links, set the data date. Preview first, automatic backup, one-step undo.
+- 📤 **XER export** — with Turkish, Western-European or UTF-8 encoding.
+- 🔒 **Private & local** — read-only by default, no cloud service of ours, zero npm dependencies, MIT licensed.
+
+## See it in action
+
+<p align="center"><img src="docs/gorseller/ornek-sohbet.svg" alt="Example conversation with real answers from the demo schedule" width="100%"></p>
+
+## ⚡ Install in one line
 
 ```bash
-gemini extensions install https://github.com/merihdogan/mrh-p6-gemini
+gemini extensions install https://github.com/merihdogan/Mrh-P6-Studio-Gemini
 ```
 
-Needs `git` and **Node.js 22.13+**. Start `gemini` and ask: *"Open C:\\P6\\PPMDBSQLite.db and summarize the project."*
-Update with `gemini extensions update mrh-p6`.
+Then start `gemini` and ask:
 
-**Editing** is off by default. To allow it for a session, start Gemini CLI with the variable set:
+> *"Open C:\\P6\\PPMDBSQLite.db and give me a project overview."*
 
-```bash
-set MRH_EDIT=1 && gemini
-```
+Needs `git` and **Node.js 22.13+**. Update later with `gemini extensions update mrh-p6`; remove with `gemini extensions uninstall mrh-p6`.
 
-(PowerShell: `$env:MRH_EDIT="1"; gemini` · macOS/Linux: `MRH_EDIT=1 gemini`)
+### Enable editing (optional)
+
+Editing is **off** by default. Start Gemini CLI with `MRH_EDIT=1` for a session where edits are allowed:
+
+| Shell | Command |
+|---|---|
+| Windows (cmd) | `set MRH_EDIT=1 && gemini` |
+| PowerShell | `$env:MRH_EDIT="1"; gemini` |
+| macOS / Linux | `MRH_EDIT=1 gemini` |
+
+## How it works
+
+<p align="center"><img src="docs/gorseller/nasil-calisir.svg" alt="How MRH P6 Studio works" width="100%"></p>
+
+## Schedule health in one call
+
+<p align="center"><img src="docs/gorseller/saglik-kontrolu.svg" alt="Schedule health check" width="100%"></p>
 
 ## What you can ask
 
-- *"Open C:\\P6\\PPMDBSQLite.db and summarize the project open in P6."*
-- *"Which critical activities finish in the next 3 weeks?"*
-- *"Compare with the baseline and list the 10 activities that slipped most."*
-- *"Run a schedule health check and explain the failed checks."*
-- *"Mark A1020 complete with actual dates 3–14 March."* (editing enabled)
+> *"Open C:\\P6\\PPMDBSQLite.db and summarize the project that is open in P6."*
+> *"Which critical activities finish in the next 3 weeks?"*
+> *"Compare with the baseline and list the 10 activities that slipped most, with their WBS."*
+> *"Run a schedule health check and explain the failed checks in plain language."*
+> *"Find in-progress activities with zero remaining duration."*
+> *"Mark A1020 complete with actual dates 3–14 March, then show me what changed."* ✏️
+> *"Export the project to XER for the client."*
 
 ## Tools
 
@@ -55,20 +92,26 @@ set MRH_EDIT=1 && gemini
 | `mrh_data_date_set` ✏️ | Set the project data date (YYYY-MM-DD). |
 | `mrh_undo` ✏️ | Revert the last edit made in this session. |
 
-✏️ = editing tool, only available when editing is enabled (`MRH_EDIT=1`).
+✏️ = editing tool — only listed when editing is enabled (`MRH_EDIT=1`).
 
-## Safety
+## Safety first
 
-- **Read-only by default.** Editing tools are hidden until editing is enabled.
-- A compressed **backup** is written next to the database (`mrh_yedekler\\<name>`) before the first edit, and every edit runs in a single transaction (all or nothing).
-- `mrh_undo` reverts the last edit; it refuses if the same rows were changed elsewhere afterwards.
-- Dates, float and the critical path come from P6. After editing, press **F5** (refresh) and **F9** (schedule) in P6.
-- Direct database edits bypass P6's own validation and are not supported by Oracle. **Work on a copy first**, and make sure sharing project data with an AI service is allowed by your company.
+| | |
+|---|---|
+| 🔒 **Read-only by default** | Editing tools are hidden until you enable them. |
+| 💾 **Automatic backup** | A compressed copy is written next to the database (`mrh_yedekler\\<name>`) before the first edit of a session. |
+| ⚛️ **All or nothing** | Every edit runs in one transaction; one invalid activity rolls the whole change back. |
+| ↩️ **Undo** | `mrh_undo` reverts the last edit and refuses if the same rows were changed elsewhere afterwards. |
+| ✅ **P6 rules** | Status/actual-date consistency, milestone rules, duplicate codes and loop-creating links are refused; new IDs follow P6's own key counters. |
+
+Dates, float and the critical path are calculated by P6 — after editing press **F5** (refresh) and **F9** (schedule).
+Direct database edits bypass P6's own validation and are not supported by Oracle: **try it on a copy first**, and check that sharing project data with an AI service is allowed by your company.
 
 ## Requirements
 
-- **Node.js 22.13 or newer** (uses the built-in `node:sqlite`; no npm packages). Check with `node --version`.
-- A Primavera P6 **Professional SQLite** database. SQL Server / Oracle databases are not supported.
+- **Node.js 22.13+** (uses the built-in `node:sqlite`, no npm packages) — check with `node --version`.
+- A Primavera **P6 Professional SQLite** database (SQL Server / Oracle databases are not supported).
+- Windows, macOS or Linux.
 
 ## Try it without P6
 
@@ -76,27 +119,42 @@ set MRH_EDIT=1 && gemini
 node araclar/dgn-demo-olustur.js ornek/mrh-demo.db
 ```
 
-creates a synthetic demo database (65 activities, baseline, progress) you can open with `mrh_db_open`.
+Creates a synthetic demo schedule (65 activities, WBS, progress, a baseline, resources and codes) — the examples on this page come from it.
 
-## Tests
+## Development
 
 ```bash
 npm test
 ```
 
-## Türkçe
+The server is a single dependency-free Node.js program in [`mrh/`](mrh): `mrh-mcp.js` (MCP over stdio and Streamable HTTP), `dgn-p6.js` (schema-adaptive P6 reader), `dgn-yazim.js` (edit rules), `dgn-kontrol.js` (health checks), `dgn-ozet.js` (overview), `dgn-xer.js` (XER export) and `mr-yedek.js` (backups).
 
-**MRH P6**, Primavera P6 Professional SQLite veritabanlarını Gemini CLI ile konuşarak incelemenizi ve (izin verirseniz) düzenlemenizi sağlayan açık kaynak bir MCP sunucusudur.
+## 🇹🇷 Türkçe
 
-- Varsayılan olarak **salt okunurdur**; düzenleme için `MRH_EDIT=1` gerekir.
-- İlk düzenlemeden önce veritabanının yanındaki `mrh_yedekler` klasörüne otomatik yedek alınır; `mrh_undo` son işlemi geri alır.
-- Düzenlemeden sonra P6'da **F5** ve **F9** yapın. Önce veritabanınızın bir **kopyası** üzerinde deneyin.
-- Gereksinim: **Node.js 22.13+**. Ek paket gerekmez.
+**MRH P6 Studio**, Primavera P6 Professional SQLite veritabanınızı **Gemini CLI** ile konuşarak incelemenizi ve izin verirseniz güvenle düzenlemenizi sağlayan açık kaynak bir MCP eklentisidir.
 
-**Kurulum:** `gemini extensions install https://github.com/merihdogan/mrh-p6-gemini`
-Düzenleme için Gemini CLI'ı `MRH_EDIT=1` ortam değişkeniyle başlatın.
+- 🔎 *"Gecikmeye ne sebep oluyor?"*, *"Önümüzdeki ay başlayacak kritik aktiviteler hangileri?"*, *"Tabana göre en çok kayan 10 aktivite?"* gibi sorulara doğrudan veritabanından cevap verir.
+- 🩺 **Plan sağlığı:** 15 kontrol, 0–100 puan ve düzeltilecek aktivitelerin listesi.
+- 📈 **İlerleme ve taban karşılaştırması:** süre ağırlıklı ilerleme, veri tarihindeki planlı ilerleme, tahmini bitiş ve sapma, WBS bazında ilerleme.
+- ✏️ **Güvenli düzenleme:** yüzlerce aktivitenin ilerlemesini tek işlemde günceller; önizleme, otomatik yedek ve tek adımda geri alma vardır.
+- 🔒 Varsayılan olarak **salt okunurdur**; düzenleme için `MRH_EDIT=1` gerekir. Ek paket yoktur, MIT lisanslıdır.
+
+**Kurulum:** `gemini extensions install https://github.com/merihdogan/Mrh-P6-Studio-Gemini` komutunu çalıştırın, ardından `gemini` ile başlayıp veritabanınızın yolunu vererek soru sorun. Düzenleme için Gemini CLI'ı `MRH_EDIT=1` ile başlatın.
+
+Gereksinim: **Node.js 22.13+**. Düzenlemeden sonra P6'da **F5** ve **F9** yapın. İlk denemeyi veritabanınızın bir **kopyası** üzerinde yapın.
+
+## The MRH P6 Studio family
+
+| | |
+|---|---|
+| 🟠 **Claude** (Claude Code & Desktop) | [Mrh-P6-Studio-Claude](https://github.com/merihdogan/Mrh-P6-Studio-Claude) |
+| 🟢 **ChatGPT & Codex** | [Mrh-P6-Studio-ChatGPT](https://github.com/merihdogan/Mrh-P6-Studio-ChatGPT) |
+| 🔵 **Gemini CLI** | **you are here** |
+
+All three share the same open-source server; only the packaging differs.
 
 ---
 
-Made by **Merih Doğan** · MIT License · Part of [MRH P6 Studio](https://github.com/merihdogan).
-Primavera and P6 are trademarks of Oracle and/or its affiliates. This project is independent and not affiliated with Oracle, Anthropic, OpenAI or Google.
+<p align="center"><sub>Made with care by <b>Merih Doğan</b> · MIT License<br>
+Primavera and P6 are trademarks of Oracle and/or its affiliates. Claude, ChatGPT, Codex and Gemini are trademarks of their respective owners.
+MRH P6 Studio is an independent project, not affiliated with or endorsed by Oracle, Anthropic, OpenAI or Google.</sub></p>

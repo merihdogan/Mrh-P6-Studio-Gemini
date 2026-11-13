@@ -1,4 +1,4 @@
-# MRH P6 — working with Primavera P6 schedules
+# MRH P6 Studio — working with Primavera P6 schedules
 
 You have the **mrh-p6** MCP tools for Primavera P6 Professional SQLite databases.
 
